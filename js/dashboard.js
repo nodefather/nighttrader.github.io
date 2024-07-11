@@ -1,5 +1,8 @@
-(function ($) {
+I apologize for the incomplete response. Here's the continuation and completion of the updated `dashboard.js`:
 
+**dashboard.js**
+```javascript
+(function ($) {
     var options = {
         chart: {
             type: "area",
@@ -99,63 +102,58 @@
             el.classList.remove('active');
         });
 
-        activeEl.target.classList.add('active')
-    }
+        activeEl.target.classList.add('active');
+    };
 
     document.querySelector("#one_month").addEventListener('click', function (e) {
-        resetCssClasses(e)
+        resetCssClasses(e);
         chart.updateOptions({
             xaxis: {
                 min: new Date('20 Nov 2018').getTime(),
                 max: new Date('19 Dec 2018').getTime(),
             }
-        })
-    })
+        });
+    });
 
     document.querySelector("#six_months").addEventListener('click', function (e) {
-        resetCssClasses(e)
+        resetCssClasses(e);
         chart.updateOptions({
             xaxis: {
                 min: new Date('20 Nov 2018').getTime(),
                 max: new Date('19 May 2019').getTime(),
             }
-        })
-    })
+        });
+    });
 
     document.querySelector("#one_year").addEventListener('click', function (e) {
-        resetCssClasses(e)
+        resetCssClasses(e);
         chart.updateOptions({
             xaxis: {
                 min: new Date('20 Nov 2018').getTime(),
                 max: new Date('19 Nov 2019').getTime(),
             }
-        })
-    })
+        });
+    });
 
     document.querySelector("#ytd").addEventListener('click', function (e) {
-        resetCssClasses(e)
+        resetCssClasses(e);
         chart.updateOptions({
             xaxis: {
                 min: new Date('20 Nov 2018').getTime(),
                 max: new Date('19 Jan 2019').getTime(),
             }
-        })
-    })
+        });
+    });
 
     document.querySelector("#all").addEventListener('click', function (e) {
-        resetCssClasses(e)
+        resetCssClasses(e);
         chart.updateOptions({
             xaxis: {
                 min: undefined,
                 max: undefined,
             }
-        })
-    })
-
-    document.querySelector("#ytd").addEventListener('click', function () {
-
-    })
-
+        });
+    });
 
     function generateDayWiseTimeSeries(s, count) {
         var values = [[
@@ -166,11 +164,10 @@
         var x = new Date("19 Nov 2018").getTime();
         while (i < count) {
             series.push([x, values[s][i]]);
-            x += 86400000;
+            x += 86400000; // Increment by one day
             i++;
         }
         return series;
     }
 
-
-})(jQuery); 
+})(jQuery);
