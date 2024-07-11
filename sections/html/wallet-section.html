@@ -1,0 +1,393 @@
+<style>
+.wallet-container { background-color: var(--Bg-color, #1e1e1e); display: flex; flex-direction: column; justify-content: center; }
+.content-wrapper { display: flex; gap: 0; }
+@media (max-width: 991px) { .content-wrapper { flex-wrap: wrap; } }
+.sidebar { display: flex; flex-direction: column; justify-content: center; padding: 10px; }
+.sidebar-content { justify-content: center; border-radius: 15px; background-color: #252525; display: flex; flex-direction: column; padding: 15px 10px; }
+.logo { aspect-ratio: 2.17; object-fit: auto; object-position: center; width: 111px; align-self: center; max-width: 100%; }
+.divider { width: 100%; stroke-width: 1px; stroke: #fff; border: 1px solid #fff; margin-top: 20px; }
+.menu-container { justify-content: space-between; display: flex; margin-top: 19px; flex-direction: column; }
+.menu-items { display: flex; flex-direction: column; }
+.menu-item { display: flex; gap: 15px; padding: 10px; }
+.icon-wrapper { justify-content: center; align-items: center; display: flex; }
+.menu-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; }
+.menu-text { color: #eee; text-overflow: ellipsis; flex: 1; margin: auto 0; font: 500 13px Gilroy, sans-serif; }
+.active-menu-item { border-radius: 10px; background-color: var(--pri, linear-gradient(0deg, #f4970b 0%, #f4970b 100%), #f4ab0b); }
+.bottom-menu { display: flex; margin-top: 355px; flex-direction: column; }
+@media (max-width: 991px) { .bottom-menu { margin-top: 40px; } }
+.theme-switcher { display: flex; margin-top: 10px; flex-direction: column; font-size: 13px; font-weight: 500; white-space: nowrap; justify-content: center; padding: 0 10px; }
+@media (max-width: 991px) { .theme-switcher { white-space: initial; } }
+.theme-toggle { border-radius: 5px; background-color: #202020; display: flex; gap: 9px; padding: 5px; }
+@media (max-width: 991px) { .theme-toggle { white-space: initial; } }
+.theme-option { justify-content: center; border-radius: 5px; display: flex; gap: 5px; flex: 1; padding: 5px 10px; }
+@media (max-width: 991px) { .theme-option { white-space: initial; padding: 0 20px; } }
+.theme-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 20px; }
+.theme-text { font-family: Gilroy, sans-serif; margin: auto 0; }
+.active-theme { background-color: var(--Dark-Grey, #303030); color: #fff; }
+.inactive-theme { color: #6c6c6c; }
+.main-content { display: flex; flex-direction: column; flex: 1; padding: 10px 10px 10px 0; }
+@media (max-width: 991px) { .main-content { max-width: 100%; } }
+.header { justify-content: space-between; border-radius: 15px; background-color: var(--Table, #252525); display: flex; width: 100%; gap: 20px; color: #fff; font-weight: 500; padding: 15px 20px; }
+@media (max-width: 991px) { .header { max-width: 100%; flex-wrap: wrap; } }
+.page-title { display: flex; flex-direction: column; font-size: 25px; white-space: nowrap; justify-content: center; margin: auto 0; }
+@media (max-width: 991px) { .page-title { white-space: initial; } }
+.nav-items { justify-content: space-between; display: flex; gap: 20px; font-size: 16px; }
+@media (max-width: 991px) { .nav-items { flex-wrap: wrap; } }
+.nav-item { font-family: Gilroy, sans-serif; white-space: nowrap; justify-content: center; padding: 15px 10px; }
+@media (max-width: 991px) { .nav-item { white-space: initial; } }
+.balance-card { border-radius: 15px; background-color: #252525; display: flex; margin-top: 10px; flex-direction: column; justify-content: center; }
+@media (max-width: 991px) { .balance-card { max-width: 100%; } }
+.balance-content { display: flex; flex-direction: column; justify-content: center; padding: 0 30px; }
+@media (max-width: 991px) { .balance-content { max-width: 100%; padding: 0 20px; } }
+.balance-info { justify-content: space-between; background-color: var(--Table, #252525); display: flex; width: 100%; gap: 20px; padding: 30px 0; }
+@media (max-width: 991px) { .balance-info { max-width: 100%; flex-wrap: wrap; } }
+.balance-details { display: flex; gap: 20px; justify-content: space-between; }
+@media (max-width: 991px) { .balance-details { max-width: 100%; flex-wrap: wrap; } }
+.balance-item { justify-content: center; display: flex; flex-direction: column; }
+.balance-label { color: #fff; font: 500 20px Gilroy, sans-serif; }
+.balance-value { display: flex; margin-top: 10px; gap: 10px; }
+.balance-amount { color: var(--unnamed, var(--Green, #00cea9)); font: 600 30px Gilroy, sans-serif; }
+.balance-currency { color: #fff; margin: auto 0; font: 500 14px Gilroy, sans-serif; }
+.balance-actions { justify-content: end; display: flex; gap: 15px; font-size: 14px; font-weight: 600; margin: auto 0; }
+@media (max-width: 991px) { .balance-actions { flex-wrap: wrap; } }
+.action-button { justify-content: center; border-radius: 10px; border: 1px solid #2c2c2c; background-color: #292929; display: flex; gap: 10px; white-space: nowrap; padding: 15px 25px; }
+@media (max-width: 991px) { .action-button { white-space: initial; padding: 0 20px; } }
+.action-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 20px; }
+.action-text { font-family: Gilroy, sans-serif; }
+.deposit-button { color: var(--unnamed, var(--Green, #00cea9)); }
+.withdraw-button { color: var(---, var(--Red, #ff5166)); }
+.quick-change-button { color: var(--pri, #f4ab0b); }
+.assets-table { border-radius: 15px; background-color: #252525; display: flex; margin-top: 10px; flex-direction: column; font-size: 14px; font-weight: 500; justify-content: center; }
+@media (max-width: 991px) { .assets-table { max-width: 100%; } }
+.table-content { border-color: rgba(0, 0, 0, 0.08); border-style: solid; border-top-width: 1px; display: flex; flex-direction: column; padding: 20px 20px 0; }
+@media (max-width: 991px) { .table-content { max-width: 100%; } }
+.table-header { justify-content: space-between; display: flex; gap: 20px; font-size: 20px; color: #fff; padding: 0 10px; }
+@media (max-width: 991px) { .table-header { max-width: 100%; flex-wrap: wrap; } }
+.table-title { font-family: Gilroy, sans-serif; justify-content: center; padding: 10px 0; }
+.table-columns { justify-content: center; display: flex; margin-top: 20px; gap: 20px; font-size: 12px; color: #fff; padding: 5px 15px; }
+@media (max-width: 991px) { .table-columns { max-width: 100%; flex-wrap: wrap; } }
+.table-column { font-family: Gilroy, sans-serif; align-items: start; white-space: nowrap; justify-content: center; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .table-column { padding-right: 20px; white-space: initial; } }
+.table-row { align-items: center; border-radius: 10px; background-color: #292929; display: flex; margin-top: 10px; gap: 20px; padding: 15px 5px 15px 15px; }
+@media (max-width: 991px) { .table-row { flex-wrap: wrap; } }
+.asset-info { align-items: center; align-self: stretch; display: flex; gap: 10px; color: #fff; white-space: nowrap; flex: 1; margin: auto 0; padding: 10px 0; }
+@media (max-width: 991px) { .asset-info { white-space: initial; } }
+.asset-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; align-self: stretch; margin: auto 0; }
+.asset-name { font-family: Gilroy, sans-serif; align-self: stretch; flex: 1; margin: auto 0; }
+.asset-value { font-family: Gilroy, sans-serif; align-self: stretch; color: #fff; white-space: nowrap; justify-content: center; flex: 1; margin: auto 0; padding: 10px; }
+@media (max-width: 991px) { .asset-value { white-space: initial; } }
+.asset-actions { align-self: stretch; display: flex; gap: 5px; white-space: nowrap; padding: 10px; }
+@media (max-width: 991px) { .asset-actions { white-space: initial; } }
+.asset-action { justify-content: center; border-radius: 5px; background-color: rgba(103, 103, 103, 0.1); display: flex; gap: 10px; flex: 1; padding: 10px 20px; }
+@media (max-width: 991px) { .asset-action { white-space: initial; } }
+.action-deposit { color: var(--unnamed, var(--Green, #00cea9)); }
+.action-send { color: var(---, var(--Red, #ff5166)); }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+</style>
+
+<section class="wallet-container">
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5baa386acf9d9aae2a610723555b9780e6e6439a8a1edd1038f83cabcc679ee?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Company Logo" class="logo">
+        <hr class="divider">
+        <nav class="menu-container">
+          <ul class="menu-items">
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/665228549c2b79185ca751f7836b8ef527e86b7e5fffe0ef791576f446f8ef4a?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Markets</span>
+            </li>
+            <li class="menu-item active-menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0d539fc927950720285419bb6376c7ad2748424769b8f43347604fcbf5acf79?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Wallet</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ea641cc1c268fd72deeecf09b75294e04f602513b6e2ce0e8ab8d2bd4fb39baa?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Earn</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b5375b33c2e36b49b16e5ede4726eb59887090315838660cccf98b504da090c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">History</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac093956bc02792447468e2ea48e5c9c15f8d61c8969ef0f1854f29687239eb7?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Exchange</span>
+            </li>
+          </ul>
+        </nav>
+        <nav class="bottom-menu">
+          <ul class="menu-items">
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/889461538b585b9b64e13fbf836d1ee0d2088120933457536fef72f9560da41e?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Setting</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bcca0f8fbf5d0d3b1194e9eebb122f2610113622147a7105bff48ed06f45967c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Referral</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/272a12b8ce879baf64ac61e383fb2e5eb84aa912b4dbc5010f5cd01487eea681?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              </div>
+              <span class="menu-text">Username</span>
+            </li>
+          </ul>
+          <div class="theme-switcher">
+            <div class="theme-toggle">
+              <div class="theme-option active-theme">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/3028bcb4ad7703c82bae2027bdbd9e716f539cb861d9003e604e800fc418d35d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="theme-icon">
+                <span class="theme-text">Dark</span>
+              </div>
+              <hr class="divider">
+              <div class="theme-option inactive-theme">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/5b8916170eb970cdd1393c253d4b7a27301afa50157fc5140d56214b733e3059?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="theme-icon">
+                <span class="theme-text">Light</span>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="icon-wrapper">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f88c34113b044555d62991fcb7cebaee0944c85ffc14fd3b145e4a77eabed992?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+            </div>
+            <span class="menu-text">Close</span>
+          </div>
+        </nav>
+      </div>
+    </aside>
+    <main class="main-content">
+      <header class="header">
+        <h1 class="page-title">Wallet</h1>
+        <nav class="nav-items">
+          <a href="#balance" class="nav-item">Balance</a>
+          <a href="#history" class="nav-item">Transaction history</a>
+          <a href="#orders" class="nav-item">Orders</a>
+          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/999785333dc5ad6f7eb066c3715a9aa136ccf269ce302f9a9715474868c6d8f2?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+        </nav>
+      </header>
+      <section class="balance-card">
+        <div class="balance-content">
+          <div class="balance-info">
+            <div class="balance-details">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a54d2ad3ca327599a9f46f4e7ddab3d349a271468e5322c9c75acdc5da903578?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+              <div class="balance-item">
+                <h2 class="balance-label">Total Balances</h2>
+                <div class="balance-value">
+                  <span class="balance-amount">23,450.00</span>
+                  <span class="balance-currency">USDT</span>
+                </div>
+              </div>
+              <div class="balance-item">
+                <h2 class="balance-label">Available Balances</h2>
+                <div class="balance-value">
+                  <span class="balance-amount">23,450.00</span>
+                  <span class="balance-currency">USDT</span>
+                </div>
+              </div>
+              <div class="balance-item">
+                <h2 class="balance-label">Orders</h2>
+                <div class="balance-value">
+                  <span class="balance-amount">4,230.00</span>
+                  <span class="balance-currency">USDT</span>
+                </div>
+              </div>
+            </div>
+            <div class="balance-actions">
+              <button class="action-button deposit-button">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1fa495b69ea9026ac6f5d8a402de07b94231bca80bce6d79f113e022ab55a0e6?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="action-button withdraw-button">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2e0d0ac0f8b08ffb66286b07039bd00047eaa3430a3ba7ec7ca3a0d8d226a190?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Withdraw</span>
+              </button>
+              <button class="action-button quick-change-button">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d0922d780e7fa47363f17b08d59d1257427bc6cb3b9f7f29d5f1731efae1f9c3?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Quick change</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="assets-table">
+        <div class="table-content">
+          <div class="table-header">
+            <h2 class="table-title">All Assets</h2>
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/20bf1d1e4ad1b36b4654bbd51f04c119cba12bcf88ce0515ab301e4cd0fb58e3?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="menu-icon">
+          </div>
+          <div class="table-columns">
+            <span class="table-column">Asset</span>
+            <span class="table-column">Sum</span>
+            <span class="table-column">USD</span>
+            <span class="table-column">Trade ready</span>
+            <span class="table-column">Orders</span>
+            <span class="table-column">Depositing</span>
+            <span class="table-column">Ops</span>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d263a63a42791398bce7a35641e93459901af330bf8218595ed3f4a56c578f2e?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Bitcoin" class="asset-icon">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/404e701a08a5dff0817c653db76d6ac810a1a6d10b11c0fa9806eea60d4a0264?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="asset-icon">
+              <span class="asset-name">Bitcoin</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e012db8ae6b081943c26006e44076d46b0b830c53e56af26f10f263e6ae01f0f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9120077d7cb9eb69064c14088540f807058df941fc9666e4df5061bd93b7f8b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d263a63a42791398bce7a35641e93459901af330bf8218595ed3f4a56c578f2e?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Ethereum" class="asset-icon">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/90c2797668289ce9b5224033d31119db2ade75e277f64be0bae22b9bf330718d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="asset-icon">
+              <span class="asset-name">Ethereum</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e012db8ae6b081943c26006e44076d46b0b830c53e56af26f10f263e6ae01f0f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9120077d7cb9eb69064c14088540f807058df941fc9666e4df5061bd93b7f8b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/faac3096641d7abe88a4b1e38ec9887b2ff27c076f5728243ebaee6e4fd667ea?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Litecoin" class="asset-icon">
+              <span class="asset-name">Litecoin</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e012db8ae6b081943c26006e44076d46b0b830c53e56af26f10f263e6ae01f0f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9120077d7cb9eb69064c14088540f807058df941fc9666e4df5061bd93b7f8b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e8636eefd1d5036872e05dd5a910cebc3ea12188c6cb3d4f0623dee3cf29e4e0?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="BAY" class="asset-icon">
+              <span class="asset-name">BAY</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e012db8ae6b081943c26006e44076d46b0b830c53e56af26f10f263e6ae01f0f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9120077d7cb9eb69064c14088540f807058df941fc9666e4df5061bd93b7f8b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bde1ee72cc400cc9c0e3dca54790c8eaf1ead09099b2bec6c1c4fd0240b7be6b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Bitcoin" class="asset-icon">
+              <span class="asset-name">Bitcoin</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e012db8ae6b081943c26006e44076d46b0b830c53e56af26f10f263e6ae01f0f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9120077d7cb9eb69064c14088540f807058df941fc9666e4df5061bd93b7f8b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a66cfaaa583f32d9a75a319c7aac9c1f2f565689553ac364927298d15615235c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Ethereum" class="asset-icon">
+              <span class="asset-name">Ethereum</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e012db8ae6b081943c26006e44076d46b0b830c53e56af26f10f263e6ae01f0f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f9120077d7cb9eb69064c14088540f807058df941fc9666e4df5061bd93b7f8b?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+          <div class="table-row">
+            <div class="asset-info">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/76ccbb749c6083d00396990e1cc790a5e85e8ca6c412f2099e4534680fc2d656?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="BAY" class="asset-icon">
+              <span class="asset-name">BAY</span>
+            </div>
+            <span class="asset-value">0.000541514</span>
+            <span class="asset-value">$ 120</span>
+            <span class="asset-value">0.0000241</span>
+            <span class="asset-value">0.000020425</span>
+            <span class="asset-value">---</span>
+            <div class="asset-actions">
+              <button class="asset-action action-deposit">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c3780ed31888410678fee1f1609a43a8e4a40102b06411c44cb7ae0c4fe41b15?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Deposit</span>
+              </button>
+              <button class="asset-action action-send">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2c233dc39000408fcac1d8d887607c6020997735c1d22107215f86ca233a8976?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="action-icon">
+                <span class="action-text">Send</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</section>
