@@ -1,0 +1,342 @@
+<style>
+.withdraw-container { background-color: #1e1e1e; display: flex; flex-direction: column; justify-content: center; }
+.content-wrapper { display: flex; gap: 0; }
+@media (max-width: 991px) { .content-wrapper { flex-wrap: wrap; } }
+.sidebar { display: flex; flex-direction: column; justify-content: center; padding: 10px; }
+.sidebar-content { border-radius: 15px; background-color: #252525; display: flex; flex-direction: column; padding: 15px 10px; }
+.logo { aspect-ratio: 2.17; object-fit: auto; object-position: center; width: 111px; align-self: center; max-width: 100%; }
+.divider { width: 100%; stroke-width: 1px; stroke: #fff; border: 1px solid #fff; margin-top: 20px; }
+.nav-menu { justify-content: space-between; display: flex; margin-top: 19px; flex-direction: column; }
+.nav-item { display: flex; gap: 15px; padding: 10px; }
+.nav-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; }
+.nav-text { color: #eee; text-overflow: ellipsis; flex: 1; margin: auto 0; font: 500 13px Gilroy, sans-serif; }
+.active-nav-item { border-radius: 10px; background-color: #f4970b; }
+.bottom-menu { display: flex; margin-top: 355px; flex-direction: column; }
+@media (max-width: 991px) { .bottom-menu { margin-top: 40px; } }
+.theme-toggle { display: flex; margin-top: 10px; flex-direction: column; font-size: 13px; font-weight: 500; white-space: nowrap; justify-content: center; padding: 0 10px; }
+@media (max-width: 991px) { .theme-toggle { white-space: initial; } }
+.toggle-wrapper { border-radius: 5px; background-color: #202020; display: flex; gap: 9px; padding: 5px; }
+@media (max-width: 991px) { .toggle-wrapper { white-space: initial; } }
+.dark-mode { justify-content: center; border-radius: 5px; background-color: #303030; display: flex; gap: 5px; color: #fff; flex: 1; padding: 5px 10px; }
+@media (max-width: 991px) { .dark-mode { white-space: initial; padding: 0 20px; } }
+.light-mode { justify-content: center; display: flex; flex-direction: column; color: #6c6c6c; flex: 1; padding: 5px 10px; }
+@media (max-width: 991px) { .light-mode { white-space: initial; } }
+.main-content { display: flex; flex-direction: column; flex: 1; padding: 10px 10px 10px 0; }
+@media (max-width: 991px) { .main-content { max-width: 100%; } }
+.withdraw-box { border-radius: 15px; background-color: #252525; display: flex; flex-direction: column; padding: 10px 20px; }
+@media (max-width: 991px) { .withdraw-box { max-width: 100%; } }
+.withdraw-header { display: flex; flex-direction: column; font-weight: 500; justify-content: center; padding: 0 20px; }
+@media (max-width: 991px) { .withdraw-header { max-width: 100%; } }
+.header-content { justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background-color: #252525; display: flex; width: 100%; gap: 20px; padding: 15px 0; }
+@media (max-width: 991px) { .header-content { max-width: 100%; flex-wrap: wrap; } }
+.withdraw-title { display: flex; flex-direction: column; font-size: 25px; color: #fff; white-space: nowrap; justify-content: center; margin: auto 0; }
+@media (max-width: 991px) { .withdraw-title { white-space: initial; } }
+.withdraw-options { justify-content: end; display: flex; gap: 20px; font-size: 12px; text-align: center; }
+@media (max-width: 991px) { .withdraw-options { flex-wrap: wrap; } }
+.option-wrapper { border-radius: 5px; background-color: #212121; display: flex; gap: 9px; padding: 5px; }
+.option-text { font-family: Gilroy, sans-serif; justify-content: center; color: #6c6c6c; padding: 15px 10px; }
+@media (max-width: 991px) { .option-text { padding: 0 20px; } }
+.active-option { font-family: Gilroy, sans-serif; justify-content: center; border-radius: 5px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16); background-color: #2f2f2f; color: #fff; padding: 15px 10px; }
+@media (max-width: 991px) { .active-option { padding: 0 20px; } }
+.withdraw-form { align-items: start; display: flex; margin-top: 10px; flex-direction: column; padding: 20px 25px; }
+@media (max-width: 991px) { .withdraw-form { max-width: 100%; padding: 0 20px; } }
+.form-label { color: #fff; font: 500 20px Gilroy, sans-serif; }
+@media (max-width: 991px) { .form-label { max-width: 100%; } }
+.form-row { display: flex; margin-top: 20px; gap: 20px; justify-content: space-between; }
+@media (max-width: 991px) { .form-row { flex-wrap: wrap; } }
+.asset-selector { display: flex; flex-direction: column; justify-content: center; margin: auto 0; }
+@media (max-width: 991px) { .asset-selector { max-width: 100%; } }
+.selector-wrapper { justify-content: end; display: flex; gap: 0; }
+@media (max-width: 991px) { .selector-wrapper { flex-wrap: wrap; } }
+.selector-left { border-radius: 10px 0 0 10px; border: 1px solid rgba(234, 234, 234, 0.15); border-right: none; width: 15px; height: 56px; }
+.selector-content { justify-content: center; display: flex; flex-direction: column; font-size: 14px; color: #fff; font-weight: 400; white-space: nowrap; flex: 1; }
+@media (max-width: 991px) { .selector-content { white-space: initial; } }
+.asset-info { display: flex; gap: 5px; }
+.asset-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; }
+.asset-name { text-overflow: ellipsis; font-family: Gilroy, sans-serif; }
+.selector-right { border-radius: 0 10px 10px 0; border: 1px solid rgba(234, 234, 234, 0.15); border-left: none; width: 15px; height: 56px; }
+.balance-info { justify-content: center; display: flex; flex-direction: column; color: #fff; font-weight: 500; white-space: nowrap; padding: 10px; }
+@media (max-width: 991px) { .balance-info { white-space: initial; } }
+.balance-label { font: 13px Gilroy, sans-serif; }
+.balance-amount { display: flex; margin-top: 6px; gap: 5px; }
+.amount { font: 19px Gilroy, sans-serif; }
+.currency { margin: auto 0; font: 12px Gilroy, sans-serif; }
+.form-divider { width: 100%; stroke-width: 1px; stroke: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.08); margin-top: 10px; }
+.quantity-input { display: flex; margin-top: 10px; flex-direction: column; padding: 20px 25px; }
+@media (max-width: 991px) { .quantity-input { max-width: 100%; padding: 0 20px; } }
+.input-wrapper { display: flex; gap: 20px; }
+@media (max-width: 991px) { .input-wrapper { flex-wrap: wrap; } }
+.input-field { display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 991px) { .input-field { max-width: 100%; } }
+.field-wrapper { justify-content: end; display: flex; gap: 0; }
+@media (max-width: 991px) { .field-wrapper { flex-wrap: wrap; } }
+.max-button { justify-content: center; border-radius: 5px; background-color: #2f2f2f; color: #fff; white-space: nowrap; margin: auto 0; padding: 10px 20px; font: 500 13px Gilroy, sans-serif; }
+@media (max-width: 991px) { .max-button { white-space: initial; } }
+.min-amount { color: #fff; margin: auto 0; font: 500 13px Gilroy, sans-serif; }
+.receiver-input { align-items: start; display: flex; margin-top: 10px; flex-direction: column; padding: 20px 25px; }
+@media (max-width: 991px) { .receiver-input { max-width: 100%; padding: 0 20px; } }
+.warning { color: #fff; margin: auto 0; font: 500 13px Gilroy, sans-serif; }
+.submit-button { align-items: start; display: flex; margin-top: 10px; width: 475px; max-width: 100%; flex-direction: column; font-size: 16px; color: #343434; font-weight: 500; text-align: center; justify-content: center; padding: 20px; }
+.button-content { justify-content: center; border-radius: 10px; box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16); background-color: #00cea9; display: flex; gap: 10px; padding: 15px 20px; }
+.button-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 20px; }
+.button-text { font-family: Gilroy, sans-serif; }
+.recent-withdrawals { border-radius: 15px; background-color: #252525; display: flex; margin-top: 10px; flex-direction: column; color: #fff; font-weight: 500; padding: 10px 30px 0; }
+@media (max-width: 991px) { .recent-withdrawals { max-width: 100%; padding: 0 20px; } }
+.withdrawals-content { padding-left: 10px; display: flex; flex-direction: column; }
+@media (max-width: 991px) { .withdrawals-content { max-width: 100%; } }
+.withdrawals-header { display: flex; flex-direction: column; font-size: 25px; justify-content: center; padding: 0 20px; }
+@media (max-width: 991px) { .withdrawals-header { max-width: 100%; } }
+.header-wrapper { justify-content: center; align-items: start; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background-color: #252525; display: flex; flex-direction: column; padding: 15px 0; }
+@media (max-width: 991px) { .header-wrapper { max-width: 100%; padding-right: 20px; } }
+.header-text { display: flex; width: 232px; max-width: 100%; flex-direction: column; justify-content: center; }
+.withdrawals-table { display: flex; margin-top: 10px; flex-direction: column; font-size: 12px; padding: 0 10px; }
+@media (max-width: 991px) { .withdrawals-table { max-width: 100%; } }
+.table-header { justify-content: center; display: flex; gap: 20px; }
+@media (max-width: 991px) { .table-header { flex-wrap: wrap; } }
+.header-cell { display: flex; gap: 10px; white-space: nowrap; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .header-cell { padding-right: 20px; white-space: initial; } }
+.cell-text { font-family: Gilroy, sans-serif; margin: auto 0; }
+.sort-icon { aspect-ratio: 0.5; object-fit: auto; object-position: center; width: 10px; }
+.table-row { justify-content: center; display: flex; gap: 20px; padding: 5px 0; }
+@media (max-width: 991px) { .table-row { flex-wrap: wrap; } }
+.row-cell { font-family: Gilroy, sans-serif; justify-content: center; flex: 1; padding: 10px; }
+.status-paid { font-family: Gilroy, sans-serif; color: #00cea9; white-space: nowrap; justify-content: center; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .status-paid { white-space: initial; } }
+.alternate-row { justify-content: center; border-radius: 5px; background-color: #212121; display: flex; gap: 20px; padding: 3px 0; }
+@media (max-width: 991px) { .alternate-row { flex-wrap: wrap; } }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+</style>
+
+<section class="withdraw-container">
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5baa386acf9d9aae2a610723555b9780e6e6439a8a1edd1038f83cabcc679ee?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Company Logo" class="logo" />
+        <hr class="divider" />
+        <nav class="nav-menu">
+          <a href="#" class="nav-item">
+            <a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/665228549c2b79185ca751f7836b8ef527e86b7e5fffe0ef791576f446f8ef4a?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Markets</span>
+</a>
+<a href="#" class="nav-item active-nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0d539fc927950720285419bb6376c7ad2748424769b8f43347604fcbf5acf79?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Wallet</span>
+</a>
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ea641cc1c268fd72deeecf09b75294e04f602513b6e2ce0e8ab8d2bd4fb39baa?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Earn</span>
+</a>
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b5375b33c2e36b49b16e5ede4726eb59887090315838660cccf98b504da090c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">History</span>
+</a>
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac093956bc02792447468e2ea48e5c9c15f8d61c8969ef0f1854f29687239eb7?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Exchange</span>
+</a>
+</nav>
+<div class="bottom-menu">
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/889461538b585b9b64e13fbf836d1ee0d2088120933457536fef72f9560da41e?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Setting</span>
+</a>
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bcca0f8fbf5d0d3b1194e9eebb122f2610113622147a7105bff48ed06f45967c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Referral</span>
+</a>
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/272a12b8ce879baf64ac61e383fb2e5eb84aa912b4dbc5010f5cd01487eea681?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Username</span>
+</a>
+<div class="theme-toggle">
+  <div class="toggle-wrapper">
+    <div class="dark-mode">
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/04c3fd30c723f1fe79e2bf20bd7ddf7b0a4027a2955de71b8e8eb04f2d142f73?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+      <span>Dark</span>
+    </div>
+    <hr class="divider" />
+    <div class="light-mode">
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/133e0a3961650ee44ff07acf1c19f86d1a56fffa6ceb4e968cc4abdda78cfde6?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+      <span>Light</span>
+    </div>
+  </div>
+</div>
+<a href="#" class="nav-item">
+  <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f88c34113b044555d62991fcb7cebaee0944c85ffc14fd3b145e4a77eabed992?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  <span class="nav-text">Close</span>
+</a>
+</div>
+</div>
+</aside>
+<main class="main-content">
+<section class="withdraw-box">
+<header class="withdraw-header">
+<div class="header-content">
+  <h1 class="withdraw-title">Withdraw</h1>
+  <div class="withdraw-options">
+    <div class="option-wrapper">
+      <span class="option-text">Send to Email/BM</span>
+      <hr class="divider" />
+      <span class="active-option">Send to Wallet</span>
+    </div>
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d1ea4ec44f216fd6d676889dc783f5d90a0b125e1b6f202dd2a78202a001b13?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="nav-icon" />
+  </div>
+</div>
+</header>
+<form class="withdraw-form">
+<label for="asset-select" class="form-label">Choose your Assets:</label>
+<div class="form-row">
+  <div class="asset-selector">
+    <div class="selector-wrapper">
+      <div class="selector-left"></div>
+      <div class="selector-content">
+        <div class="asset-info">
+          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7b5d32dee644d7836d97c1f9c69ed46e04f75fb269cc74ac197753271ada0ff9?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Bitcoin icon" class="asset-icon" />
+          <span class="asset-name">Bitcoin</span>
+        </div>
+      </div>
+      <div class="selector-right"></div>
+    </div>
+  </div>
+  <select id="asset-select" class="visually-hidden">
+    <option value="bitcoin">Bitcoin</option>
+  </select>
+  <div class="balance-info">
+    <span class="balance-label">Balance:</span>
+    <div class="balance-amount">
+      <span class="amount">0.000020425</span>
+      <span class="currency">USDT</span>
+    </div>
+  </div>
+  <div class="balance-info">
+    <span class="balance-label">Ready to send:</span>
+    <div class="balance-amount">
+      <span class="amount">0.000020425</span>
+      <span class="currency">USDT</span>
+    </div>
+  </div>
+  <div class="balance-info">
+    <span class="balance-label">Network (fixed)</span>
+    <div class="balance-amount">
+      <span class="amount">0.000020425</span>
+      <span class="currency">USDT</span>
+    </div>
+  </div>
+  <div class="balance-info">
+    <span class="balance-label">fee 0.5%</span>
+    <div class="balance-amount">
+      <span class="amount">0.00000000</span>
+      <span class="currency">USDT</span>
+    </div>
+  </div>
+</div>
+<hr class="form-divider" />
+<div class="quantity-input">
+  <label for="quantity" class="form-label">Quantity:</label>
+  <div class="input-wrapper">
+    <div class="input-field">
+      <div class="field-wrapper">
+        <div class="selector-left"></div>
+        <div class="selector-content">
+          <div class="asset-info">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/9df11e36761765841a632db2eefb44347e8a34efe76b88332bb4a3db7540c58a?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="asset-icon" />
+            <span class="asset-name">0.0000001624</span>
+          </div>
+        </div>
+        <div class="selector-right"></div>
+      </div>
+    </div>
+    <input type="number" id="quantity" name="quantity" class="visually-hidden" value="0.0000001624" />
+    <button type="button" class="max-button">MAX</button>
+  </div>
+  <p class="min-amount">Minimum withdrawal amount: 0.001 Bitcoin</p>
+</div>
+<hr class="form-divider" />
+<div class="receiver-input">
+  <label for="receiver" class="form-label">Receiver:</label>
+  <div class="input-wrapper">
+    <div class="input-field">
+      <div class="field-wrapper">
+        <div class="selector-left"></div>
+        <div class="selector-content">
+          <div class="asset-info">
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/881ff4267fea72d574efa2934b1a21df3ed65b9a162389805474f978a985243f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="asset-icon" />
+            <span class="asset-name">ffhggdjh67y6bngvncxvh64unb46igbbg5</span>
+          </div>
+        </div>
+        <div class="selector-right"></div>
+      </div>
+    </div>
+    <input type="text" id="receiver" name="receiver" class="visually-hidden" value="ffhggdjh67y6bngvncxvh64unb46igbbg5" />
+    <button type="button" class="max-button">MAX</button>
+  </div>
+  <p class="warning">Entering an incorrect address may result in the loss of your funds.</p>
+</div>
+<hr class="form-divider" />
+<div class="submit-button">
+  <button type="submit" class="button-content">
+    <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a35cc02a544a318e8e87710fa21bcdc7f6906abdc4077ebda745c35a33e382a0?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="button-icon" />
+    <span class="button-text">Sign & Send BTC</span>
+  </button>
+</div>
+</form>
+</section>
+<section class="recent-withdrawals">
+<div class="withdrawals-content">
+<header class="withdrawals-header">
+  <div class="header-wrapper">
+    <div class="header-text">
+      <h2>Recent Withdrawals</h2>
+    </div>
+  </div>
+</header>
+<div class="withdrawals-table">
+  <div class="table-header">
+    <div class="header-cell">
+      <span class="cell-text">Date</span>
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/aae6fbf1f159bf4121e9881c8e3c2ce05c57bdd36ef8c6aa2b6b18d178566389?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="sort-icon" />
+    </div>
+    <div class="header-cell">
+      <span class="cell-text">Time</span>
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1aff8b0a1762c88ed636a12ba9b15ee5d32aedce4125da0b830a0ce04cc0bcee?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="sort-icon" />
+    </div>
+    <div class="header-cell">
+      <span class="cell-text">Txout</span>
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c81bbde118b861e4dda55699de56872d1a5ca670bd2761fdf0ca63539ccb46d7?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="sort-icon" />
+    </div>
+    <div class="header-cell">
+      <span class="cell-text">Amount</span>
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/5aeeb0303f702af15f11c02e0f967a7b0763c64baed195941cc2c8476d267b68?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="sort-icon" />
+    </div>
+    <div class="header-cell">
+      <span class="cell-text">USD</span>
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/94ed7af4b60ee2f4ed1ca4fecf63a553a820e39b7ef3368b2bc62075592d14f9?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="sort-icon" />
+    </div>
+    <div class="header-cell">
+      <span class="cell-text">Status</span>
+      <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/c8cd58710c56716ab6d37edc84fc280e03d0f36b4e8ea7fe95c23cb2faa4c6a3?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="" class="sort-icon" />
+    </div>
+  </div>
+  <div class="table-row">
+    <div class="row-cell">February 19, 2024</div>
+    <div class="row-cell">16:20</div>
+    <div class="row-cell">fh65nd7mv5lf:1</div>
+    <div class="row-cell">20.00000</div>
+    <div class="row-cell">0.00062341</div>
+    <div class="status-paid">Paid</div>
+  </div>
+  <div class="alternate-row">
+    <div class="row-cell">February 19, 2024</div>
+    <div class="row-cell">16:20</div>
+    <div class="row-cell">fh65nd7mv5lf:1</div>
+    <div class="row-cell">15.00000</div>
+    <div class="row-cell">0.00062341</div>
+    <div class="status-paid">Paid</div>
+  </div>
+</div>
+</div>
+</section>
+</main>
+</div>
+</section>
