@@ -1,0 +1,408 @@
+<style>
+.deposit-container { background-color: #1e1e1e; display: flex; flex-direction: column; justify-content: center; }
+.content-wrapper { display: flex; gap: 0; }
+@media (max-width: 991px) { .content-wrapper { flex-wrap: wrap; } }
+.sidebar { display: flex; flex-direction: column; justify-content: center; padding: 10px; }
+.sidebar-content { justify-content: center; border-radius: 15px; background-color: #252525; display: flex; flex-direction: column; padding: 15px 10px; }
+.logo { aspect-ratio: 2.17; object-fit: auto; object-position: center; width: 111px; align-self: center; max-width: 100%; }
+.divider { width: 100%; stroke-width: 1px; stroke: #fff; border: 1px solid #fff; margin-top: 20px; }
+.menu-container { justify-content: space-between; display: flex; margin-top: 19px; flex-direction: column; }
+.menu-items { display: flex; flex-direction: column; }
+.menu-item { display: flex; gap: 15px; padding: 10px; }
+.icon-wrapper { justify-content: center; align-items: center; display: flex; }
+.menu-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; }
+.menu-text { color: #eee; text-overflow: ellipsis; flex: 1; margin: auto 0; font: 500 13px Gilroy, sans-serif; }
+.active-menu-item { border-radius: 10px; background-color: #f4970b; }
+.bottom-menu { display: flex; margin-top: 355px; flex-direction: column; }
+@media (max-width: 991px) { .bottom-menu { margin-top: 40px; } }
+.theme-switcher { display: flex; margin-top: 10px; flex-direction: column; font-size: 13px; font-weight: 500; white-space: nowrap; justify-content: center; padding: 0 10px; }
+@media (max-width: 991px) { .theme-switcher { white-space: initial; } }
+.theme-options { border-radius: 5px; background-color: #202020; display: flex; gap: 9px; padding: 5px; }
+@media (max-width: 991px) { .theme-options { white-space: initial; } }
+.theme-option { justify-content: center; border-radius: 5px; background-color: #303030; display: flex; gap: 5px; color: #fff; flex: 1; padding: 5px 10px; }
+@media (max-width: 991px) { .theme-option { white-space: initial; padding: 0 20px; } }
+.theme-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 20px; }
+.theme-text { font-family: Gilroy, sans-serif; margin: auto 0; }
+.theme-divider { aspect-ratio: 0.07; object-fit: auto; object-position: center; width: 1px; stroke-width: 1px; stroke: #fff; border: 1px solid #fff; margin: auto 0; }
+.inactive-theme { justify-content: center; display: flex; flex-direction: column; color: #6c6c6c; flex: 1; padding: 5px 10px; }
+@media (max-width: 991px) { .inactive-theme { white-space: initial; } }
+.main-content { display: flex; flex-direction: column; flex: 1; padding: 10px 10px 10px 0; }
+@media (max-width: 991px) { .main-content { max-width: 100%; } }
+.deposit-box { border-radius: 15px; background-color: #252525; display: flex; flex-direction: column; padding: 10px 20px; }
+@media (max-width: 991px) { .deposit-box { max-width: 100%; } }
+.deposit-header { display: flex; flex-direction: column; font-size: 25px; color: #fff; font-weight: 500; white-space: nowrap; justify-content: center; padding: 0 20px; }
+@media (max-width: 991px) { .deposit-header { max-width: 100%; white-space: initial; } }
+.deposit-title { justify-content: space-between; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background-color: #252525; display: flex; gap: 20px; padding: 15px 0; }
+@media (max-width: 991px) { .deposit-title { max-width: 100%; flex-wrap: wrap; white-space: initial; } }
+.title-text { font-family: Gilroy, sans-serif; justify-content: center; }
+@media (max-width: 991px) { .title-text { white-space: initial; } }
+.close-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; margin: auto 0; }
+.deposit-form { align-items: start; display: flex; margin-top: 10px; flex-direction: column; padding: 20px 25px; }
+@media (max-width: 991px) { .deposit-form { max-width: 100%; padding: 0 20px; } }
+.form-title { color: #fff; font: 500 20px Gilroy, sans-serif; }
+@media (max-width: 991px) { .form-title { max-width: 100%; } }
+.asset-selector { display: flex; margin-top: 20px; width: 450px; max-width: 100%; flex-direction: column; justify-content: center; }
+.selector-wrapper { display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 991px) { .selector-wrapper { max-width: 100%; } }
+.selector-container { justify-content: end; display: flex; gap: 0; }
+@media (max-width: 991px) { .selector-container { flex-wrap: wrap; } }
+.selector-left-border { border-radius: 10px 0 0 10px; border: 1px solid rgba(234, 234, 234, 0.15); border-right: none; width: 15px; height: 56px; }
+.selector-content { justify-content: center; display: flex; flex-direction: column; flex: 1; }
+.selector-inner { justify-content: center; display: flex; flex-direction: column; }
+.selector-row { justify-content: end; display: flex; gap: 0; }
+.asset-icon-wrapper { justify-content: center; align-items: start; border-top: 1px solid rgba(234, 234, 234, 0.15); display: flex; flex-direction: column; padding: 16px 10px 16px 0; }
+.asset-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; }
+.asset-info { justify-content: center; display: flex; flex-direction: column; font-size: 14px; color: #fff; font-weight: 400; white-space: nowrap; flex: 1; }
+@media (max-width: 991px) { .asset-info { white-space: initial; } }
+.asset-name { text-overflow: ellipsis; font-family: Gilroy, sans-serif; justify-content: center; }
+@media (max-width: 991px) { .asset-name { white-space: initial; } }
+.asset-divider { width: 100%; stroke-width: 1.25px; stroke: rgba(234, 234, 234, 0.15); border: 1px solid rgba(234, 234, 234, 0.15); }
+.selector-right-border { border-radius: 0 10px 10px 0; border: 1px solid rgba(234, 234, 234, 0.15); border-left: none; width: 15px; height: 56px; }
+.qr-code { aspect-ratio: 0.99; object-fit: auto; object-position: center; width: 114px; max-width: 100%; }
+.deposit-address { display: flex; margin-top: 10px; flex-direction: column; padding: 20px 25px; }
+@media (max-width: 991px) { .deposit-address { max-width: 100%; padding: 0 20px; } }
+.address-title { color: #fff; font: 500 20px Gilroy, sans-serif; }
+@media (max-width: 991px) { .address-title { max-width: 100%; } }
+.address-container { display: flex; margin-top: 20px; gap: 20px; }
+@media (max-width: 991px) { .address-container { flex-wrap: wrap; } }
+.address-wrapper { display: flex; padding-right: 80px; gap: 20px; flex: 1; margin: auto 0; }
+@media (max-width: 991px) { .address-wrapper { flex-wrap: wrap; } }
+.address-content { display: flex; flex-direction: column; justify-content: center; }
+@media (max-width: 991px) { .address-content { max-width: 100%; } }
+.address-row { justify-content: end; display: flex; gap: 0; }
+@media (max-width: 991px) { .address-row { flex-wrap: wrap; } }
+.address-left-border { border-radius: 10px 0 0 10px; border: 1px solid rgba(234, 234, 234, 0.15); border-right: none; width: 15px; height: 56px; }
+.address-inner { justify-content: center; display: flex; flex-direction: column; font-weight: 400; white-space: nowrap; flex: 1; }
+@media (max-width: 991px) { .address-inner { white-space: initial; } }
+.address-info { justify-content: center; display: flex; flex-direction: column; }
+@media (max-width: 991px) { .address-info { white-space: initial; } }
+.address-details { justify-content: space-between; display: flex; padding-bottom: 27px; flex-direction: column; }
+@media (max-width: 991px) { .address-details { white-space: initial; } }
+.quantity-label { justify-content: end; display: flex; gap: 0; font-size: 10px; color: #949494; }
+@media (max-width: 991px) { .quantity-label { white-space: initial; } }
+.quantity-text { font-family: IRANYekanFN, sans-serif; justify-content: center; padding: 0 5px 4px; }
+@media (max-width: 991px) { .quantity-text { white-space: initial; } }
+.quantity-divider { width: 100%; stroke-width: 1.25px; stroke: rgba(234, 234, 234, 0.15); border: 1px solid rgba(234, 234, 234, 0.15); flex: 1; }
+.address-value { justify-content: center; display: flex; margin-top: 27px; flex-direction: column; font-size: 14px; color: #fff; }
+@media (max-width: 991px) { .address-value { white-space: initial; } }
+.address-text { text-overflow: ellipsis; font-family: Gilroy, sans-serif; justify-content: center; }
+@media (max-width: 991px) { .address-text { white-space: initial; } }
+.address-right-border { border-radius: 0 10px 10px 0; border: 1px solid rgba(234, 234, 234, 0.15); border-left: none; width: 15px; height: 56px; }
+.copy-button { justify-content: center; border-radius: 10px; border: 1px solid #3a3a3a; background-color: #252525; display: flex; gap: 10px; color: #00cea9; white-space: nowrap; padding: 10px 20px; }
+@media (max-width: 991px) { .copy-button { white-space: initial; } }
+.copy-icon { aspect-ratio: 1; object-fit: auto; object-position: center; width: 24px; }
+.copy-text { font-family: Gilroy, sans-serif; margin: auto 0; }
+.minimum-deposit { color: #fff; font-family: Gilroy, sans-serif; margin: auto 0; }
+.recent-deposits { border-radius: 15px; background-color: #252525; display: flex; margin-top: 10px; flex-direction: column; color: #fff; font-weight: 500; padding: 10px 30px 0; }
+@media (max-width: 991px) { .recent-deposits { max-width: 100%; padding: 0 20px; } }
+.deposits-wrapper { padding-left: 10px; display: flex; flex-direction: column; }
+@media (max-width: 991px) { .deposits-wrapper { max-width: 100%; } }
+.deposits-header { display: flex; flex-direction: column; font-size: 25px; justify-content: center; padding: 0 20px; }
+@media (max-width: 991px) { .deposits-header { max-width: 100%; } }
+.deposits-title { justify-content: center; align-items: start; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background-color: #252525; display: flex; flex-direction: column; padding: 15px 0; }
+@media (max-width: 991px) { .deposits-title { max-width: 100%; padding-right: 20px; } }
+.deposits-title-text { display: flex; width: 188px; max-width: 100%; flex-direction: column; justify-content: center; }
+.deposits-title-content { font-family: Gilroy, sans-serif; justify-content: center; }
+.deposits-table { display: flex; margin-top: 10px; flex-direction: column; font-size: 12px; padding: 0 10px; }
+@media (max-width: 991px) { .deposits-table { max-width: 100%; } }
+.table-header { justify-content: center; display: flex; gap: 20px; }
+@media (max-width: 991px) { .table-header { flex-wrap: wrap; } }
+.header-cell { display: flex; gap: 10px; white-space: nowrap; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .header-cell { padding-right: 20px; white-space: initial; } }
+.header-text { font-family: Gilroy, sans-serif; margin: auto 0; }
+<style>
+.header-icon { aspect-ratio: 0.5; object-fit: auto; object-position: center; width: 10px; }
+.table-row { justify-content: center; display: flex; gap: 20px; padding: 5px 0; }
+@media (max-width: 991px) { .table-row { flex-wrap: wrap; } }
+.table-cell { font-family: Gilroy, sans-serif; justify-content: center; flex: 1; padding: 10px; }
+.table-cell-nowrap { font-family: Gilroy, sans-serif; white-space: nowrap; justify-content: center; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .table-cell-nowrap { white-space: initial; } }
+.status-pending { font-family: Gilroy, sans-serif; color: #f4ab0b; white-space: nowrap; justify-content: center; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .status-pending { white-space: initial; } }
+.status-deposited { font-family: Gilroy, sans-serif; color: #00cea9; white-space: nowrap; justify-content: center; flex: 1; padding: 10px; }
+@media (max-width: 991px) { .status-deposited { white-space: initial; } }
+.table-row-alt { justify-content: center; border-radius: 5px; background-color: #212121; display: flex; gap: 20px; padding: 5px 0; }
+@media (max-width: 991px) { .table-row-alt { flex-wrap: wrap; } }
+</style>
+
+<section class="deposit-container">
+  <div class="content-wrapper">
+    <aside class="sidebar">
+      <div class="sidebar-content">
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5baa386acf9d9aae2a610723555b9780e6e6439a8a1edd1038f83cabcc679ee?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Logo" class="logo" />
+        <hr class="divider" />
+        <nav class="menu-container">
+          <ul class="menu-items">
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/665228549c2b79185ca751f7836b8ef527e86b7e5fffe0ef791576f446f8ef4a?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Markets icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Markets</span>
+            </li>
+            <li class="menu-item active-menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0d539fc927950720285419bb6376c7ad2748424769b8f43347604fcbf5acf79?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Wallet icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Wallet</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ea641cc1c268fd72deeecf09b75294e04f602513b6e2ce0e8ab8d2bd4fb39baa?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Earn icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Earn</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b5375b33c2e36b49b16e5ede4726eb59887090315838660cccf98b504da090c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="History icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">History</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac093956bc02792447468e2ea48e5c9c15f8d61c8969ef0f1854f29687239eb7?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Exchange icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Exchange</span>
+            </li>
+          </ul>
+        </nav>
+        <nav class="bottom-menu">
+          <ul class="menu-items">
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/889461538b585b9b64e13fbf836d1ee0d2088120933457536fef72f9560da41e?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Setting icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Setting</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/bcca0f8fbf5d0d3b1194e9eebb122f2610113622147a7105bff48ed06f45967c?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Referral icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Referral</span>
+            </li>
+            <li class="menu-item">
+              <div class="icon-wrapper">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/272a12b8ce879baf64ac61e383fb2e5eb84aa912b4dbc5010f5cd01487eea681?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="User icon" class="menu-icon" />
+              </div>
+              <span class="menu-text">Username</span>
+            </li>
+          </ul>
+          <div class="theme-switcher">
+            <div class="theme-options">
+              <div class="theme-option">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/e56153b741e697b8e6d76a37febfea66c062248eca4d1850f2e194103a676148?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Dark theme icon" class="theme-icon" />
+                <span class="theme-text">Dark</span>
+              </div>
+              <hr class="theme-divider" />
+              <div class="inactive-theme">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/d1b4c1c112d1c8a9475e6515541e0687950abc4ed09729417a5f7c0419b9bc9d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Light theme icon" class="theme-icon" />
+                <span class="theme-text">Light</span>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item">
+            <div class="icon-wrapper">
+              <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/f88c34113b044555d62991fcb7cebaee0944c85ffc14fd3b145e4a77eabed992?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Close icon" class="menu-icon" />
+            </div>
+            <span class="menu-text">Close</span>
+          </div>
+        </nav>
+      </div>
+    </aside>
+    <main class="main-content">
+      <section class="deposit-box">
+        <header class="deposit-header">
+          <div class="deposit-title">
+            <h1 class="title-text">Deposit</h1>
+            <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/1d1ea4ec44f216fd6d676889dc783f5d90a0b125e1b6f202dd2a78202a001b13?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Close" class="close-icon" />
+          </div>
+        </header>
+        <form class="deposit-form">
+          <h2 class="form-title">Choose your Assets:</h2>
+          <div class="asset-selector">
+            <div class="selector-wrapper">
+              <div class="selector-container">
+                <div class="selector-left-border"></div>
+                <div class="selector-content">
+                  <div class="selector-inner">
+                    <div class="selector-row">
+                      <div class="asset-icon-wrapper">
+                        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8b46fc0f0e11ec35039894609f704f517fdee75fc413c92ca34597b65c4e06df?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Bitcoin icon" class="asset-icon" />
+                      </div>
+                      <div class="asset-info">
+                        <div class="asset-name">
+                          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/fd2ab294e9d41394820c4ee8b9d4557ee9a2f6dd1f9af18be4812f31941ee958?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Bitcoin logo" class="asset-icon" />
+                          <span>Bitcoin</span>
+                          <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/160a600cd6cbf6111a530bea9a118bdab18de640481bf1ed5a44d8f2b290e5b0?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Dropdown icon" class="asset-icon" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="selector-right-border"></div>
+              </div>
+            </div>
+          </div>
+        </form>
+        <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6ad486f123d990133cf765fd27266be75746485bac522df05fbb4d3d40dc164f?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="QR Code" class="qr-code" />
+        <div class="deposit-address">
+          <h2 class="address-title">Bitcoin deposit address</h2>
+          <div class="address-container">
+            <div class="address-wrapper">
+              <div class="address-content">
+                <div class="address-row">
+                  <div class="address-left-border"></div>
+                  <div class="address-inner">
+                    <div class="address-info">
+                      <div class="address-details">
+                        <div class="quantity-label">
+                          <span class="quantity-text">Quantity:</span>
+                          <hr class="quantity-divider" />
+                        </div>
+                        <div class="address-value">
+                          <span class="address-text">ffhggdjh67y6bngvncxvh64unb46igbbg5</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="address-right-border"></div>
+                </div>
+              </div>
+              <button type="button" class="copy-button">
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/2d7e98c071bd319c2cfd881cd0589c2949f960b68d325225672fb18bb3c12b16?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Copy icon" class="copy-icon" />
+                <span class="copy-text">Copy</span>
+              </button>
+            </div>
+          </div>
+          <p class="minimum-deposit">Minimum Deposit: 0.100000, USD: $0.00</p>
+        </div>
+      </section>
+      <section class="recent-deposits">
+        <div class="deposits-wrapper">
+          <header class="deposits-header">
+            <div class="deposits-title">
+              <div class="deposits-title-text">
+                <h2 class="deposits-title-content">Recent Deposits</h2>
+              </div>
+            </div>
+          </header>
+          <div class="deposits-table">
+            <div class="table-header">
+              <div class="header-cell">
+                <span class="header-text">Date</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/db6ca1c932f9cebc8b0ca5cfc4ce3ce609c7ee941ce0d671faaf1f67e2352fb0?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">Time</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/752e147c28b8b2846b0444a0b65ef7ea411b974ffe7b5a147cea85760bbb4c04?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">Txout</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/290881c4f378ca82391154d693564b848f86910cec365f0009a27b060a5d39fe?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">Amount</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/8ba1c413fba1e28f8df9273fe15b372a9f7ebc1eebd517d11c9adb83e711e931?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">Liquid</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/36ab015cdf2b4efbccc5baebaaf3bd21843412cb1aa39f1920e417049d8c7210?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">Reserve</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/7cb13abae2b2e044c4ca0d97344a54311caa267de1cca6896aa69f965b7eb7ed?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">USD</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6b14dcc6c5fd51b68525a4963ba0c2c74a06fca12b433d962e12f331bf15c895?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+              <div class="header-cell">
+                <span class="header-text">Status</span>
+                <img src="https://cdn.builder.io/api/v1/image/assets/TEMP/6cf783d7f99354f6c3061a636f98136a5fdaec505afb83737c2e6fa68c326471?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Sort icon" class="header-icon" />
+              </div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">100.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">100.00000</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-pending">PENDING</div>
+            </div>
+            <div class="table-row-alt">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">50.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">0.51561156</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-pending">PENDING</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">100.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">100.00000</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-deposited">DEPOSITED</div>
+            </div>
+            <div class="table-row-alt">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">50.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">0.51561156</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-deposited">DEPOSITED</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">100.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">100.00000</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-deposited">DEPOSITED</div>
+            </div>
+            <div class="table-row-alt">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">50.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">0.51561156</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-deposited">DEPOSITED</div>
+            </div>
+            <div class="table-row">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">100.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">100.00000</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-deposited">DEPOSITED</div>
+            </div>
+            <div class="table-row-alt">
+              <div class="table-cell">February 19, 2024</div>
+              <div class="table-cell-nowrap">16:20</div>
+              <div class="table-cell-nowrap">fh65nd7mv5lf:1</div>
+              <div class="table-cell-nowrap">50.000000</div>
+              <div class="table-cell-nowrap">+9.1545641635</div>
+              <div class="table-cell-nowrap">0.51561156</div>
+              <div class="table-cell-nowrap">$10.00</div>
+              <div class="status-deposited">DEPOSITED</div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</section>
