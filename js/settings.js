@@ -1,70 +1,123 @@
+(function ($) {
+    "use strict";
 
-var body = $('body');
-var html = $('html');
+    // Default Settings
+    var settings = {
+        theme: "light", // or "dark"
+        layout: "vertical", // or "horizontal"
+        sidebarStyle: "full", // or "compact" or "icon-hover"
+        sidebarPosition: "fixed", // or "static"
+        headerPosition: "fixed", // or "static"
+        containerLayout: "full", // or "boxed"
+        direction: "ltr" // or "rtl"
+    };
 
-function quixSettings({ fontFamily, bodybg, primarycolor }) {
-    this.fontFamily = fontFamily || "light";
-    this.bodybg = bodybg || "color_1";
-    this.primarycolor = primarycolor || "color_1";
-
-    this.manageFont();
-    this.manageBodyBg();
-    this.primaryColor();
-
-}
-
-quixSettings.prototype.manageFont = function() {
-    switch(this.fontFamily) {
-        case "opensans": 
-            body.attr("data-font", "opensans");
-            break;
-        default: 
-            body.attr("data-font", "lato");
+    // Save Settings to Local Storage
+    function saveSettings() {
+        localStorage.setItem("quixlab-settings", JSON.stringify(settings));
     }
-}
 
-quixSettings.prototype.manageBodyBg = function () {
-    switch (this.bodybg) {
-        case "color_1":
-            body.attr("data-bodybg", "color_1");
-            break;
-        case "color_2":
-            body.attr("data-bodybg", "color_2");
-            break;
-        case "color_3":
-            body.attr("data-bodybg", "color_3");
-            break;
-        case "color_4":
-            body.attr("data-bodybg", "color_4");
-            break;
-        case "color_5":
-            body.attr("data-bodybg", "color_5");
-            break;
-        default:
-            body.attr("data-bodybg", "color_1");
+    // Load Settings from Local Storage
+    function loadSettings() {
+        var savedSettings = localStorage.getItem("quixlab-settings");
+        if (savedSettings) {
+            settings = JSON.parse(savedSettings);
+            applySettings();
+        }
     }
-}
 
+    // Apply Settings
+    function applySettings() {
+        // Theme
+        if (settings.theme === "dark") {
+            $("body").addClass("dark-theme");
+        } else {
+            $("body").removeClass("dark-theme");
+        }
 
-quixSettings.prototype.primaryColor = function() {
-    switch(this.primarycolor) {
-        case "color_1": 
-            body.attr("data-primary-color", "color_1");
-            break;
-        case "color_2": 
-            body.attr("data-primary-color", "color_2");
-            break;
-        case "color_3": 
-            body.attr("data-primary-color", "color_3");
-            break;
-        case "color_4": 
-            body.attr("data-primary-color", "color_4");
-            break;
-        case "color_5": 
-            body.attr("data-primary-color", "color_5");
-            break;
-        default:
-            body.attr("data-primary-color", "color_1");
+        // Layout
+        if (settings.layout === "horizontal") {
+            $("#main-wrapper").addClass("horizontal");
+        } else {
+            $("#main-wrapper").removeClass("horizontal");
+        }
+
+        // Sidebar Style
+        $("#main-wrapper").removeClass("full compact icon-hover").addClass(settings.sidebarStyle);
+
+        // Sidebar Position
+        if (settings.sidebarPosition === "static") {
+            $("#main-wrapper").addClass("sidebar-static");
+        } else {
+            $("#main-wrapper").removeClass("sidebar-static");
+        }
+
+        // Header Position
+        if (settings.headerPosition === "static") {
+            $("#main-wrapper").addClass("header-static");
+        } else {
+            $("#main-wrapper").removeClass("header-static");
+        }
+
+        // Container Layout
+        if (settings.containerLayout === "boxed") {
+            $("#main-wrapper").addClass("container-boxed");
+        } else {
+            $("#main-wrapper").removeClass("container-boxed");
+        }
+
+        // Direction
+        if (settings.direction === "rtl") {
+            $("html").attr("dir", "rtl");
+        } else {
+            $("html").attr("dir", "ltr");
+        }
     }
-}
 
+    // Update Settings
+    function updateSettings(newSettings) {
+        settings = Object.assign(settings, newSettings);
+        applySettings();
+        saveSettings();
+    }
+
+    // Event Listeners for Settings Changes
+    $(".theme-toggle").on("click", function () {
+        var newTheme = settings.theme === "light" ? "dark" : "light";
+        updateSettings({ theme: newTheme });
+    });
+
+    $(".layout-toggle").on("click", function () {
+        var newLayout = settings.layout === "vertical" ? "horizontal" : "vertical";
+        updateSettings({ layout: newLayout });
+    });
+
+    $(".sidebar-style-toggle").on("click", function () {
+        var newStyle = $(this).data("style");
+        updateSettings({ sidebarStyle: newStyle });
+    });
+
+    $(".sidebar-position-toggle").on("click", function () {
+        var newPosition = settings.sidebarPosition === "fixed" ? "static" : "fixed";
+        updateSettings({ sidebarPosition: newPosition });
+    });
+
+    $(".header-position-toggle").on("click", function () {
+        var newPosition = settings.headerPosition === "fixed" ? "static" : "fixed";
+        updateSettings({ headerPosition: newPosition });
+    });
+
+    $(".container-layout-toggle").on("click", function () {
+        var newLayout = settings.containerLayout === "full" ? "boxed" : "full";
+        updateSettings({ containerLayout: newLayout });
+    });
+
+    $(".direction-toggle").on("click", function () {
+        var newDirection = settings.direction === "ltr" ? "rtl" : "ltr";
+        updateSettings({ direction: newDirection });
+    });
+
+    // Initialize Settings on Page Load
+    loadSettings();
+
+})(jQuery);
