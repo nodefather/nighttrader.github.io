@@ -501,7 +501,9 @@
     <script src="./js/plugins/scrollit-init.js"></script>
     <script src="./vendor/apexchart/apexcharts.min.js"></script>
     <script src="./vendor/apexchart/apexchart-init.js"></script>
-    <script src="./js/scripts.js"></script>
+                                                    <script src="./js/scripts.js"></script>
+                                                   
+
 </body>
 
 </html>
