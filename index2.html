@@ -1,0 +1,641 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Nighttrader: Decentralized Exchange">
+    <meta name="author" content="Nighttrader">
+    <title>Nighttrader Exchange</title>
+
+    <style>
+        /* Basic Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e1e;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Preloader */
+        #preloader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            background: #333 center center no-repeat;
+        }
+
+        /* Hide all sections by default */
+        .section {
+            display: none;
+        }
+
+            /* Show the active section */
+            .section.active {
+                display: block;
+            }
+
+        /* Header Styles */
+        .header {
+            background-color: #333;
+            padding: 10px;
+        }
+
+            .header .navbar-brand img {
+                height: 50px;
+            }
+
+        .navbar-nav {
+            list-style-type: none;
+            padding: 0;
+        }
+
+            .navbar-nav .nav-item {
+                display: inline-block;
+                margin-right: 15px;
+            }
+
+            .navbar-nav .nav-link {
+                color: #fff;
+                text-decoration: none;
+                font-size: 16px;
+            }
+
+                .navbar-nav .nav-link:hover {
+                    text-decoration: underline;
+                }
+
+        /* Sidebar Styles */
+        .profile-container {
+            background-color: #1e1e1e;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .profile-layout {
+            display: flex;
+            width: 100%;
+            gap: 0;
+        }
+
+        @media (max-width: 991px) {
+            .profile-layout {
+                max-width: 100%;
+                flex-wrap: wrap;
+            }
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 10px;
+        }
+
+        .sidebar-content {
+            justify-content: center;
+            border-radius: 15px;
+            background-color: #252525;
+            display: flex;
+            flex-direction: column;
+            padding: 15px 10px;
+        }
+
+        .logo {
+            aspect-ratio: 2.17;
+            object-fit: auto;
+            object-position: center;
+            width: 111px;
+            align-self: center;
+            max-width: 100%;
+        }
+
+        .divider {
+            width: 100%;
+            stroke-width: 1px;
+            stroke: #fff;
+            border: 1px solid #fff;
+            margin-top: 20px;
+        }
+
+        .nav-container {
+            justify-content: space-between;
+            display: flex;
+            margin-top: 19px;
+            flex-direction: column;
+        }
+
+        .nav-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-item {
+            display: flex;
+            gap: 15px;
+            padding: 10px;
+        }
+
+        .nav-icon-wrapper {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        .nav-icon {
+            aspect-ratio: 1;
+            object-fit: auto;
+            object-position: center;
+            width: 24px;
+        }
+
+        .nav-text {
+            color: #eee;
+            text-overflow: ellipsis;
+            flex: 1;
+            margin: auto 0;
+            font: 500 13px Gilroy, sans-serif;
+        }
+
+        .bottom-nav {
+            display: flex;
+            margin-top: 410px;
+            flex-direction: column;
+        }
+
+        @media (max-width: 991px) {
+            .bottom-nav {
+                margin-top: 40px;
+            }
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            padding: 10px 10px 10px 0;
+        }
+
+        @media (max-width: 991px) {
+            .main-content {
+                max-width: 100%;
+            }
+        }
+
+        .content-wrapper {
+            border-radius: 15px;
+            background-color: #252525;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        @media (max-width: 991px) {
+            .content-wrapper {
+                max-width: 100%;
+            }
+        }
+
+        .tabs-container {
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (max-width: 991px) {
+            .tabs-container {
+                max-width: 100%;
+            }
+        }
+
+        .tabs-header {
+            justify-content: center;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            font-size: 15px;
+            color: #fff;
+            font-weight: 500;
+            padding: 25px;
+        }
+
+        @media (max-width: 991px) {
+            .tabs-header {
+                max-width: 100%;
+                padding: 0 20px;
+            }
+        }
+
+        .tabs-list {
+            display: flex;
+            gap: 15px;
+        }
+
+        @media (max-width: 991px) {
+            .tabs-list {
+                flex-wrap: wrap;
+            }
+        }
+
+        .tab-item {
+            font-family: Gilroy, sans-serif;
+            border-radius: 10px;
+            justify-content: center;
+            padding: 16px 20px;
+            cursor: pointer;
+        }
+
+        .active-tab {
+            background-color: #f4970b;
+        }
+
+        .profile-form {
+            border-radius: 20px;
+            align-self: center;
+            display: flex;
+            width: 673px;
+            max-width: 100%;
+            flex-direction: column;
+            padding: 65px 10px 25px 0;
+        }
+
+        /* Section Content Styles */
+        .form-field {
+            justify-content: space-between;
+            border-radius: 10px;
+            background-color: #2d2d2d;
+            display: flex;
+            margin-top: 15px;
+            width: 100%;
+            gap: 10px;
+            font-weight: 500;
+            white-space: nowrap;
+            padding: 12px 23px 12px 20px;
+        }
+
+        @media (max-width: 991px) {
+            .form-field {
+                max-width: 100%;
+                margin-right: 10px;
+                flex-wrap: wrap;
+                padding-right: 20px;
+                white-space: initial;
+            }
+        }
+
+        /* Logout Button */
+        .logout-wrapper {
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            font-size: 14px;
+            color: #fff;
+            font-weight: 500;
+            margin: 15px 0 153px;
+            padding: 10px 60px 10px 10px;
+        }
+
+        @media (max-width: 991px) {
+            .logout-wrapper {
+                max-width: 100%;
+                margin: 0 10px 40px 0;
+                padding: 0 20px;
+            }
+        }
+
+        .logout-button {
+            justify-content: center;
+            display: flex;
+            width: 200px;
+            max-width: 100%;
+            flex-direction: column;
+            padding: 5px 20px;
+        }
+
+        .logout-text {
+            font-family: Gilroy, sans-serif;
+            justify-content: center;
+            border-radius: 10px;
+            box-shadow: 0px 2px 4px 0px rgba(119, 119, 119, 0.16);
+            background-color: #ff5166;
+            padding: 20px 30px;
+        }
+
+        @media (max-width: 991px) {
+            .logout-text {
+                padding: 0 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+        <!-- Header Section -->
+        <header>
+            <div class="header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                                <a class="navbar-brand" href="#" data-section="home"><img src="images/logo.png" alt="Logo"></a>
+                                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                                        data-target aria-controls="navbarNavDropdown"
+                                        aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-section="home">Home</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-section="market">Market</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-section="trade">Trade</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-section="orders">Orders</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" data-section="profile">Profile</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Sections -->
+        <section id="home" class="section active">
+            <div class="container">
+                <h1>Welcome to Nighttrader Exchange</h1>
+                <p>Your decentralized platform for secure and private cryptocurrency trading.</p>
+            </div>
+        </section>
+
+        <section id="market" class="section">
+            <div class="container">
+                <h1>Market Overview</h1>
+                <p>Explore market trends, trading pairs, and more.</p>
+            </div>
+        </section>
+
+        <section id="trade" class="section">
+            <div class="container">
+                <h1>Trade Cryptocurrency</h1>
+                <p>Start trading your favorite cryptocurrencies with ease.</p>
+            </div>
+        </section>
+
+        <section id="orders" class="section">
+            <div class="container">
+                <h1>Your Orders</h1>
+                <p>Manage your open, completed, and canceled orders.</p>
+            </div>
+        </section>
+
+        <section id="profile" class="section">
+            <div class="container">
+                <div class="profile-container">
+                    <div class="profile-layout">
+                        <aside class="sidebar">
+                            <div class="sidebar-content">
+                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a5baa386acf9d9aae2a610723555b9780e6e6439a8a1edd1038f83cabcc679ee?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="logo" alt="Company logo" />
+                                <hr class="divider" />
+                                <nav class="nav-container">
+                                    <div class="nav-group">
+                                        <a href="#" class="nav-item" data-section="markets">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/665228549c2b79185ca751f7836b8ef527e86b7e5fffe0ef791576f446f8ef4a?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">Markets</span>
+                                        </a>
+                                        <a href="#" class="nav-item" data-section="wallet">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/f0d539fc927950720285419bb6376c7ad2748424769b8f43347604fcbf5acf79?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">Wallet</span>
+                                        </a>
+                                        <a href="#" class="nav-item" data-section="earn">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/ea641cc1c268fd72deeecf09b75294e04f602513b6e2ce0e8ab8d2bd4fb39baa?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">Earn</span>
+                                        </a>
+                                        <a href="#" class="nav-item" data-section="history">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/4b5375b33c2e36b49b16e5ede4726eb59887090315838660cccf98b504da090c?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">History</span>
+                                        </a>
+                                        <a href="#" class="nav-item" data-section="exchange">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/ac093956bc02792447468e2ea48e5c9c15f8d61c8969ef0f1854f29687239eb7?apiKey=6a14f46db8774d92a39df361c9d1397b" alt="Exchange Image" />
+                                                <span class="nav-text">Exchange</span>
+                                        </a>
+                                    </div>
+                                    <div class="bottom-nav">
+                                        <a href="#" class="nav-item" data-section="settings">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/889461538b585b9b64e13fbf836d1ee0d2088120933457536fef72f9560da41e?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">Setting</span>
+                                        </a>
+                                        <a href="#" class="nav-item" data-section="referral">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/bcca0f8fbf5d0d3b1194e9eebb122f2610113622147a7105bff48ed06f45967c?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">Referral</span>
+                                        </a>
+                                        <a href="#" class="nav-item active-tab" data-section="username">
+                                            <span class="nav-icon-wrapper">
+                                                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/272a12b8ce879baf64ac61e383fb2e5eb84aa912b4dbc5010f5cd01487eea681?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="nav-icon" alt="" />
+                                            </span>
+                                            <span class="nav-text">Username</span>
+                                        </a>
+                                    </div>
+                                </nav>
+                            </div>
+                        </aside>
+                        <main class="main-content">
+                            <div class="content-wrapper">
+                                <div class="tabs-container">
+                                    <header class="tabs-header">
+                                        <nav class="tabs-list">
+                                            <a href="#" class="tab-item active-tab" data-tab="user-profile">User Profile</a>
+                                            <a href="#" class="tab-item" data-tab="security-settings">Security Settings</a>
+                                            <a href="#" class="tab-item" data-tab="identity-verification">Identity Verification</a>
+                                            <a href="#" class="tab-item" data-tab="referral">Referral</a>
+                                        </nav>
+                                    </header>
+                                    <div class="tabs-content">
+                                        <div class="profile-form active-tab-content" data-content="user-profile">
+                                            <div class="ad-banner">
+                                                <span class="ad-text">AD</span>
+                                            </div>
+                                            <div class="form-field">
+                                                <div class="field-content">
+                                                    <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/9f6d3471971e074ca8cff68ec35823f47eef7a93357e293afd19638d9d16547b?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="field-icon" alt="" />
+                                                    <hr class="field-divider" />
+                                                    <div                                                    <div class="field-info">
+                                                        <label for="email" class="field-label">Email</label>
+                                                        <input type="email" id="email" class="field-value" value="Arsindesigners@gmail.com" readonly />
+                                                    </div>
+                                                </div>
+                                                    <button type="button" class="edit-icon">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad6f4ad06aa9c55950e5650ceefc3897930657cfdcc8b80541fb1826a8d82d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Edit email" />
+                                                    </button>
+                                                </div>
+                                                <div class="form-field">
+                                                    <div class="field-content">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/92a1e458b9b4d647692d09c8dbbd74cc73213138edd4d8b5f99509498bd39870?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="field-icon" alt="" />
+                                                        <hr class="field-divider" />
+                                                        <div class="field-info">
+                                                            <label for="password" class="field-label">Password</label>
+                                                            <input type="password" id="password" class="field-value" value="*****************************" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="edit-icon">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad6f4ad06aa9c55950e5650ceefc3897930657cfdcc8b80541fb1826a8d82d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Edit password" />
+                                                    </button>
+                                                </div>
+                                                <div class="toggle-field">
+                                                    <div class="toggle-content">
+                                                        <label for="2fa-toggle" class="toggle-label">2FA</label>
+                                                        <div class="toggle-wrapper">
+                                                            <span class="toggle-status">Off</span>
+                                                            <div class="toggle-switch">
+                                                                <input type="checkbox" id="2fa-toggle" class="visually-hidden" />
+                                                                <label for="2fa-toggle" class="toggle-track">
+                                                                    <span class="toggle-handle"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="toggle-field">
+                                                    <div class="toggle-content">
+                                                        <label for="txouts-toggle" class="toggle-label">Txouts debug</label>
+                                                        <div class="toggle-wrapper">
+                                                            <span class="toggle-status">Enable</span>
+                                                            <div class="toggle-switch active-toggle">
+                                                                <input type="checkbox" id="txouts-toggle" class="visually-hidden" checked />
+                                                                <label for="txouts-toggle" class="toggle-track">
+                                                                    <span class="toggle-handle"></span>
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="logout-wrapper">
+                                                    <button type="button" class="logout-button">
+                                                        <span class="logout-text">Log out</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="profile-form" data-content="security-settings" style="display: none;">
+                                                <div class="ad-banner">
+                                                    <span class="ad-text">AD</span>
+                                                </div>
+                                                <div class="form-field">
+                                                    <div class="field-content">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/92a1e458b9b4d647692d09c8dbbd74cc73213138edd4d8b5f99509498bd39870?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="field-icon" alt="" />
+                                                        <hr class="field-divider" />
+                                                        <div class="field-info">
+                                                            <label for="security-question" class="field-label">Security Question</label>
+                                                            <input type="text" id="security-question" class="field-value" value="What was your first pet's name?" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="edit-icon">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad6f4ad06aa9c55950e5650ceefc3897930657cfdcc8b80541fb1826a8d82d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Edit security question" />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="profile-form" data-content="identity-verification" style="display: none;">
+                                                <div class="ad-banner">
+                                                    <span class="ad-text">AD</span>
+                                                </div>
+                                                <div class="form-field">
+                                                    <div class="field-content">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/92a1e458b9b4d647692d09c8dbbd74cc73213138edd4d8b5f99509498bd39870?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="field-icon" alt="" />
+                                                        <hr class="field-divider" />
+                                                        <div class="field-info">
+                                                            <label for="identity-verification-status" class="field-label">Identity Verification Status</label>
+                                                            <input type="text" id="identity-verification-status" class="field-value" value="Pending" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="edit-icon">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad6f4ad06aa9c55950e5650ceefc3897930657cfdcc8b80541fb1826a8d82d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Edit identity verification status" />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="profile-form" data-content="referral" style="display: none;">
+                                                <div class="ad-banner">
+                                                    <span class="ad-text">AD</span>
+                                                </div>
+                                                <div class="form-field">
+                                                    <div class="field-content">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/92a1e458b9b4d647692d09c8dbbd74cc73213138edd4d8b5f99509498bd39870?apiKey=6a14f46db8774d92a39df361c9d1397b&" class="field-icon" alt="" />
+                                                        <hr class="field-divider" />
+                                                        <div class="field-info">
+                                                            <label for="referral-link" class="field-label">Referral Link</label>
+                                                            <input type="text" id="referral-link" class="field-value" value="https://nighttrader.com/ref/12345" readonly />
+                                                        </div>
+                                                    </div>
+                                                    <button type="button" class="edit-icon">
+                                                        <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/a2ad6f4ad06aa9c55950e5650ceefc3897930657cfdcc8b80541fb1826a8d82d?apiKey=6a14f46db8774d92a39df361c9d1397b&" alt="Copy referral link" />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                        </main>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- JavaScript to handle tab switching -->
+    <script src="dist/bundle.js"></script>
+    <script src="./js/global.js"></script>
+    <script src="./vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./vendor/owl-carousel/js/owl.carousel.min.js"></script>
+    <script src="./js/plugins/owl-carousel-init.js"></script>
+    <script src="./vendor/scrollit/scrollIt.js"></script>
+    <script src="./js/plugins/scrollit-init.js"></script>
+    <script src="./vendor/apexchart/apexcharts.min.js"></script>
+    <script src="./vendor/apexchart/apexchart-init.js"></script>
+    <script src="./js/scripts.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            var preloader = document.getElementById('preloader');
+            preloader.style.display = 'none'; // Hide the preloader
+        });
+    </script>
+</body>
+</html>
+
