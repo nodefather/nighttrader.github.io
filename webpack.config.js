@@ -23,12 +23,12 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './sections/html/exchange.html', // Path to your HTML file
+            template: './exchange.html', // Path to your HTML file
             filename: 'exchange.html', // Output filename
             inject: 'body', // Inject all assets into the body
         }),
         new HtmlWebpackPlugin({
-            template: './sections/html/index.html', // Path to your index HTML file
+            template: './index.html', // Path to your index HTML file
             filename: 'index.html', // Output filename for index
             inject: 'body', // Inject all assets into the body
         }),
