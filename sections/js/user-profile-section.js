@@ -1,8 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
+    // Theme toggle functionality
     const themeToggle = document.getElementById('themeToggle');
     const body = document.body;
 
-    themeToggle.addEventListener('change', function() {
+    themeToggle.addEventListener('change', function () {
         if (this.checked) {
             body.classList.add('light-theme');
             body.classList.remove('dark-theme');
@@ -12,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    // Tab navigation functionality
     const tabs = document.querySelectorAll('.tab-item');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -30,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Toggle switches functionality
     const toggleSwitches = document.querySelectorAll('.toggle-switch');
 
     toggleSwitches.forEach(toggle => {
@@ -40,6 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Edit button functionality
     const editButtons = document.querySelectorAll('.edit-icon');
 
     editButtons.forEach(button => {
@@ -70,10 +74,21 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Logout button functionality
     const logoutButton = document.querySelector('.logout-button');
 
     logoutButton.addEventListener('click', () => {
         // Add logout functionality here
         console.log('Logout clicked');
+        // Example: Redirect to logout page or perform AJAX request
+        window.location.href = 'logout.html';
     });
+
+    // Initialize other components as needed
+    initializeUserProfile();
 });
+
+function initializeUserProfile() {
+    // Additional initialization for the user profile section
+    console.log('User Profile Section Initialized');
+}
